@@ -1,9 +1,9 @@
-const HealthcheckController = require('./healthcheck');
-const UserController = require('./user');
-const AddressController = require('./address');
+const healthcheckRouter = require('./healthcheckrouter');
+const userRouter = require('./userrouter');
+const addressRoute = require('./addressrouter');
 
-module.exports = {
-  healthcheckController: HealthcheckController,
-  userController: UserController,
-  addressController: AddressController,
-};
+module.exports = [
+  healthcheckRouter,
+  userRouter,
+  addressRoute,
+];

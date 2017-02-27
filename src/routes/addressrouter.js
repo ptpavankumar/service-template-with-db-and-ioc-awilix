@@ -1,8 +1,8 @@
-const BaseRouter = require('express').Router;
+const express = require('express');
 const { errorTypes, ValidationError } = require('../models');
 
 const addressPost = (req, res) => (
-  req.scope.addressController.create(req.body)
+  req.scope.resolve('addressRepository').create(req.body)
     .then(result => (
       res.status(201).send({ data: result.data })
     ))
@@ -18,7 +18,7 @@ const addressPost = (req, res) => (
 );
 
 const addressGet = (req, res) => (
-  req.scope.addressController.fetch()
+  req.scope.resolve('addressRepository').fetch()
     .then(result => (
       res.status(200).send({ data: result.data })
     ))
@@ -28,7 +28,8 @@ const addressGet = (req, res) => (
 );
 
 const addressGetById = (req, res) => (
-  req.scope.addressController.fetchSingle(req.params.addressid)
+  // console.log(req.scope.registrations)
+  req.scope.resolve('addressRepository').fetchSingle(req.params.addressid)
     .then(result => (
       res.status(200).send({ data: result.data })
     ))
@@ -42,7 +43,7 @@ const addressGetById = (req, res) => (
 );
 
 const addressPut = (req, res) => (
-  req.scope.addressController.update(req.params.addressid, req.body)
+  req.scope.resolve('addressRepository').update(req.params.addressid, req.body)
     .then(result => (
       res.status(200).send(result.data)
     ))
@@ -60,7 +61,7 @@ const addressPut = (req, res) => (
 );
 
 const addressDelete = (req, res) => (
-  req.scope.addressController.deleteSingle(req.params.addressid, req.body)
+  req.scope.resolve('addressRepository').deleteSingle(req.params.addressid, req.body)
     .then(result => (
       res.status(200).send(result.data)
     ))
@@ -69,16 +70,11 @@ const addressDelete = (req, res) => (
     ))
 );
 
-class Router extends BaseRouter {
-  constructor() {
-    super();
+const router = express.Router();
+router.post('/address', addressPost);
+router.get('/address', addressGet);
+router.get('/address/:addressid', addressGetById);
+router.put('/address/:addressid', addressPut);
+router.delete('/address/:addressid', addressDelete);
 
-    this.post('address', addressPost);
-    this.get('address', addressGet);
-    this.get('/address/:addressid', addressGetById);
-    this.put('/address/:addressid', addressPut);
-    this.delete('/address/:addressid', addressDelete);
-  }
-}
-
-module.exports = Router;
+module.exports = router;

@@ -1,7 +1,7 @@
 const { addressDTO, errorTypes, ValidationError } = require('../models');
 
 class AddressRepository {
-  constructor(knex) {
+  constructor({ knex }) {
     this.knex = knex;
   }
 
@@ -28,7 +28,7 @@ class AddressRepository {
   }
 
   fetch() {
-    this.knex('address').select()
+    return this.knex('address').select()
       .then(collections => (
         { data: collections }
       ))
@@ -39,7 +39,7 @@ class AddressRepository {
   }
 
   fetchSingle(addressid) {
-    this.knex('address').select().where({ id: addressid })
+    return this.knex('address').select().where({ id: addressid })
       .then((addresses) => {
         if (addresses.length <= 0) {
           throw new Error(errorTypes.Unavailable);
@@ -58,12 +58,12 @@ class AddressRepository {
 
   /* eslint-disable */
   update(addressid, address) {
-    Promise.reject(new Error(errorTypes.NotImplemented));
+    return Promise.reject(new Error(errorTypes.NotImplemented));
   }
   /* eslint-enable */
 
   deleteSingle(addressid) {
-    this.knex('address').delete().where({ id: addressid })
+    return this.knex('address').delete().where({ id: addressid })
       .then(addresses => (
         { data: addresses[0] }
       ))

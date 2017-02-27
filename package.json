@@ -12,7 +12,8 @@
   },
   "keywords": [
     "express",
-    "webapi"
+    "webapi",
+    "awilix"
   ],
   "author": "P T Pavan Kumar",
   "license": "ISC",

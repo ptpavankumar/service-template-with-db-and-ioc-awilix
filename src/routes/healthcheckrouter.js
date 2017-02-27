@@ -1,4 +1,4 @@
-const BaseRouter = require('express').Router;
+const express = require('express');
 const packageJson = require('../../package.json');
 
 const healthCheckGet = (req, res) => {
@@ -13,12 +13,7 @@ const healthCheckGet = (req, res) => {
                                </html>`);
 };
 
-class Router extends BaseRouter {
-  constructor() {
-    super();
+const router = express.Router();
+router.get('/_health', healthCheckGet);
 
-    this.get('/_health', healthCheckGet);
-  }
-}
-
-module.exports = Router;
+module.exports = router;

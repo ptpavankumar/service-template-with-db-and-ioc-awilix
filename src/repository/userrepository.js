@@ -1,7 +1,7 @@
 const { userDTO, errorTypes, ValidationError } = require('../models');
 
 class UserRepository {
-  constructor(knex) {
+  constructor({ knex }) {
     this.knex = knex;
   }
 
