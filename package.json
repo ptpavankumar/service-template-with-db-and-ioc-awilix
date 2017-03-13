@@ -1,6 +1,6 @@
 {
   "name": "service template with database and ioc (i.e. awilix)",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "service template to create api(s) ",
   "main": "index.js",
   "scripts": {
