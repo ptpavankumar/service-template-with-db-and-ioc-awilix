@@ -33,8 +33,8 @@ module.exports = {
     client: 'postgresql',
     connection: process.env.DATABASE_URL,
     pool: {
-      min: process.env.DATABASE_MINIMUM_POOL,
-      max: process.env.DATABASE_MAX_POOL,
+      min: process.env.DATABASE_MINIMUM_POOL || 2,
+      max: process.env.DATABASE_MAX_POOL || 10,
     },
     migrations: {
       tableName: process.env.DATABASE_MIGRATION_TABLE_NAME || 'knex_migrations',
